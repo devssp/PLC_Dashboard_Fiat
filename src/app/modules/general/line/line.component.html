@@ -1,0 +1,10 @@
+<div class="line col-md-{{line.size}}">
+    <div class="center">
+        <span> {{line.line}}</span>
+    </div>
+    <div class="row">
+        <ng-container *ngFor="let m of line.machines">
+              <app-machine [machine]="m"></app-machine>
+        </ng-container>
+    </div>
+</div>

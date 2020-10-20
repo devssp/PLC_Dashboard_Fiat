@@ -1,0 +1,10 @@
+<div class="form-group">
+    <button (click)="connect()"  class="btn btn-success" type="button" style="margin-right: 5px;font-size: 15px;">Connect</button>
+    <button (click)="disconnect()" class="btn btn-danger" type="button" style="margin-right: 5px;font-size: 15px;">Disconnect </button>
+    <!-- <button (click)="sendMessage()">Send Mesage</button> -->
+</div>
+<ng-container *ngFor="let u of uteList">
+    <app-ute [ute]='u'>
+       
+    </app-ute>
+</ng-container>

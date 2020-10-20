@@ -1,0 +1,172 @@
+<!-- <div class="machine" [style.height.px]= "boxSize" [style.width.px]= "boxSize" >
+    <span id="machine_{{machine.id}}" [style.font-size.px]= "boxSize/8" [style.line-height]= "lineHeight"> {{machine.code}}</span>
+     <div class="row machine-body" [style.font-size.px]= "boxSize/4" >
+
+         <div *ngIf="machine.current==0" class="col-12 col-md-12 m-green">
+             <span>0</span>
+          </div>
+
+          <div *ngIf="machine.current==1" class="col-12 col-md-12 m-yellow">
+             <span>{{machine.currentYellow}}</span>
+          </div>
+          <div *ngIf="machine.current==2" class="col-12 col-md-12 m-red">
+              <span>{{machine.currentRed}}</span>
+          </div>
+
+         <div *ngIf="machine.current==3" class="col-6 col-md-6 m-yellow">
+            <span>{{machine.currentYellow}}</span>
+         </div>
+
+         <div *ngIf="machine.current==3" class="col-6 col-md-6 m-red">
+             <span>{{machine.currentRed}}</span>
+         </div>
+     </div>
+      <div class="row machine-body" [style.font-size.px]= "boxSize/5">
+
+         <div style="background: green" *ngIf="machine.old==0" class="col-12 col-md-12">
+             <span>0</span>
+          </div>
+
+         <div *ngIf="machine.old==1" class="col-12 col-md-12 m-yellow">
+             <span>{{machine.oldYellow}}</span>
+          </div>
+          <div *ngIf="machine.old==2" class="col-12 col-md-12 m-red">
+              <span>{{machine.currentRed}}</span>
+          </div>
+
+         <div *ngIf="machine.old==3" class="col-6 col-md-6 m-yellow">
+             <span>{{machine.oldYellow}}</span>
+         </div>
+
+         <div *ngIf="machine.old==3" class="col-6 col-md-6 m-red">
+             <span>{{machine.currentRed}}</span>
+         </div>
+     </div>
+ </div> -->
+
+
+ <div class="machine" [style.height.px]= "boxSize" [style.width.px]= "boxSize">
+        <div class="row machine-header" [style.font-size.px]= "boxSize/10" [style.line-height]= "lineHeight" (click)="showAssetComponent(machine)">
+            <div class="col-md-12 inner_color_box">{{machine.code}}</div>
+        </div>
+         <div class="row machine-body" [style.font-size.px]= "boxSize/3">
+
+            <ng-template #tipContentRed>
+                <div *ngFor="let red of machine.Red; let i = index" style="border-bottom: solid 1px gray;padding: 2px"><span style="font-weight: 800">{{i+1}})</span><span style="font-weight: normal">{{red.tagName}}</span></div>
+            </ng-template>
+            <ng-template #tipContentYellow >
+                <div *ngFor="let yellow of machine.popupYellow; let i = index" style="border-bottom: solid 1px gray;padding: 2px"><span style="font-weight: 800">{{i+1}})</span><span style="font-weight: normal">{{yellow.tagName}}</span> </div>
+            </ng-template>
+
+             <div *ngIf="machine.current==0" class="col-12 col-md-12 inner_color_box green">
+                 <span>0</span>
+              </div>
+
+              <div *ngIf="machine.current==1" [ngbTooltip]="tipContentYellow" class="col-12 col-md-12 inner_color_box yellow" (click)="openYellow(yellowModal, machine)">
+                 <span>{{machine.currentYellow}}</span>
+              </div>
+              <div *ngIf="machine.current==2" [ngbTooltip]="tipContentRed"  class="col-12 col-md-12 inner_color_box red" (click)="openRed(redModal, machine)">
+                  <span>{{machine.currentRed}}</span>
+              </div>
+
+             <div *ngIf="machine.current==3" [ngbTooltip]="tipContentYellow" class="col-6 col-md-6 inner_color_box yellow" (click)="openYellow(yellowModal, machine)">
+                <span>{{machine.currentYellow}}</span>
+             </div>
+
+             <div *ngIf="machine.current==3" [ngbTooltip]="tipContentRed" class="col-6 col-md-6 inner_color_box red" (click)="openRed(redModal, machine)">
+                 <span>{{machine.currentRed}}</span>
+             </div>
+         </div>
+          <div class="row machine-value border-box" [style.font-size.px]= "boxSize/5">
+
+             <div *ngIf="machine.old==0" style="border-radius: inherit;" class="col-12 col-md-12 inner_color_box green">
+                 <span>0</span>
+              </div>
+
+             <div *ngIf="machine.old==1" style="border-radius: inherit;" class="col-12 col-md-12 inner_color_box yellow" (click)="showTagAlertGrid(machine, 'yellow')">
+                 <span>{{machine.oldYellow}}</span>
+              </div>
+              <div *ngIf="machine.old==2" style="border-radius: inherit;" class="col-12 col-md-12 inner_color_box red" (click)="showTagAlertGrid(machine, 'red')">
+                  <span>{{machine.oldRed}}</span>
+              </div>
+
+             <div *ngIf="machine.old==3" style="border-bottom-left-radius: inherit !important" class="col-6 col-md-6 inner_color_box yellow" (click)="showTagAlertGrid(machine, 'yellow')">
+                 <span>{{machine.oldYellow}}</span>
+             </div>
+
+             <div *ngIf="machine.old==3" style="border-bottom-right-radius: inherit !important" class="col-6 col-md-6 inner_color_box red" (click)="showTagAlertGrid(machine, 'red')">
+                 <span>{{machine.oldRed}}</span>
+             </div>
+         </div>
+
+         <ng-template #redModal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Red Tag</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" style="overflow:auto !important; max-height: 65vh !important;min-height: 45vh !important">
+              <table>
+                <tr>
+                    <th>criticalUpperThreshold</th>
+                    <th>component</th>
+                    <th>tagValue</th>
+                    <th>lowerWarning</th>
+                    <th>time</th>
+                    <th>tagName</th>
+                    <th>criticalLowerThreshold</th>
+                    <th>upperWarning</th>
+                </tr>
+                <tr *ngFor="let tag of redTagList">
+                    <td>{{tag.criticalUpperThreshold}}</td>
+                    <td>{{tag.component}}</td>
+                    <td>{{tag.tagValue}}</td>
+                    <td>{{tag.lowerWarning}}</td>
+                    <td>{{tag.time}}</td>
+                    <td style="overflow-wrap: anywhere;">{{tag.tagName}}</td>
+                    <td>{{tag.criticalLowerThreshold}}</td>
+                    <td>{{tag.upperWarning}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+            </div>
+          </ng-template>
+
+          <ng-template #yellowModal let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Yellow Tag</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="overflow:auto !important; max-height: 65vh !important;min-height: 45vh !important">
+                  <table>
+                    <tr>
+                        <th>criticalUpperThreshold</th>
+                        <th>component</th>
+                        <th>tagValue</th>
+                        <th>lowerWarning</th>
+                        <th>time</th>
+                        <th>tagName</th>
+                        <th>criticalLowerThreshold</th>
+                        <th>upperWarning</th>
+                    </tr>
+                    <tr *ngFor="let tag of yellowTagList">
+                            <td>{{tag.criticalUpperThreshold}}</td>
+                            <td>{{tag.component}}</td>
+                            <td>{{tag.tagValue}}</td>
+                            <td>{{tag.lowerWarning}}</td>
+                            <td>{{tag.time}}</td>
+                            <td style="overflow-wrap: anywhere;">{{tag.tagName}}</td>
+                            <td>{{tag.criticalLowerThreshold}}</td>
+                            <td>{{tag.upperWarning}}</td>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+                </div>
+              </ng-template>
+     </div>

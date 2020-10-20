@@ -1,0 +1,10 @@
+<div class="ute col-md-{{ute.size}}">
+    <div class="center">
+        <span>{{ute.ute}}</span>
+    </div>
+    <div>
+        <ng-container *ngFor="let l of ute.lines">
+            <app-line [line]='l'> </app-line>
+        </ng-container>
+    </div>
+</div>

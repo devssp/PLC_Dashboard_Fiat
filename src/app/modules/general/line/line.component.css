@@ -1,0 +1,10 @@
+.line {
+	border: solid 2px #d01d1d;
+	min-height : 100px;
+	padding-left: 15px;
+    border-radius: 10px;
+}
+.center{
+    display: flex;
+    justify-content: center;
+}
